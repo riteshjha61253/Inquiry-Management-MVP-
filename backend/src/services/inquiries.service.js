@@ -13,8 +13,10 @@ export function isValidPhone(phone) {
 }
 
 export function getAllInquiries() {
-  return readInquiries();
+  const inquiries = readInquiries();
+  return Array.isArray(inquiries) ? inquiries : [];
 }
+
 
 
 export function addInquiry({ name, email, phone, source }) {
