@@ -4,22 +4,41 @@ import { v4 as uuidv4 } from "uuid";
 const VALID_SOURCES = ["Website", "WhatsApp", "Email", "Referral"];
 const VALID_STATUSES = ["New", "Contacted", "Closed"];
 
+
 export function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-export function isValidPhone(phone) {
-  return /^[0-9]{10,15}$/.test(phone);
+
+export function normalizePhone(phone) {
+  if (!phone) return null;
+  return phone.replace(/[^\d]/g, ""); 
 }
 
-export function getAllInquiries() {
-  const inquiries = readInquiries();
-if (!Array.isArray(inquiries)) return [];
+export function isValidPhone(phone) {
+  const normalized = normalizePhone(phone);
+  return /^[0-9]{10,15}$/.test(normalized);
+}
+
+
+export function getAllInquiries(filters = {}) {
+  let inquiries = readInquiries();
+  if (!Array.isArray(inquiries)) return [];
+
+  if (filters.status) {
+    inquiries = inquiries.filter((i) => i.status === filters.status);
+  }
+
+  if (filters.source) {
+    inquiries = inquiries.filter((i) => i.source === filters.source);
+  }
 
   return inquiries.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );
 }
+
+
 
 export function addInquiry({ name, email, phone, source }) {
   if (!name || !name.trim()) {
@@ -30,11 +49,14 @@ export function addInquiry({ name, email, phone, source }) {
     throw new Error("Either email or phone number is required");
   }
 
-  if (email && !isValidEmail(email)) {
+  const normEmail = email?.trim().toLowerCase() || null;
+  const normPhone = phone ? normalizePhone(phone) : null;
+
+  if (normEmail && !isValidEmail(normEmail)) {
     throw new Error("Invalid email format");
   }
 
-  if (phone && !isValidPhone(phone)) {
+  if (normPhone && !isValidPhone(normPhone)) {
     throw new Error("Invalid phone number");
   }
 
@@ -44,9 +66,10 @@ export function addInquiry({ name, email, phone, source }) {
 
   const inquiries = readInquiries();
 
+
   const duplicate = inquiries.find((inq) => {
-    if (email && inq.email === email) return true;
-    if (phone && inq.phone === phone) return true;
+    if (normEmail && inq.email?.toLowerCase() === normEmail) return true;
+    if (normPhone && normalizePhone(inq.phone) === normPhone) return true;
     return false;
   });
 
@@ -59,8 +82,8 @@ export function addInquiry({ name, email, phone, source }) {
   const newInquiry = {
     id: uuidv4(),
     name: name.trim(),
-    email: email || null,
-    phone: phone || null,
+    email: normEmail,
+    phone: normPhone,
     source,
     status: "New",
     createdAt: now,
@@ -72,6 +95,7 @@ export function addInquiry({ name, email, phone, source }) {
 
   return newInquiry;
 }
+
 
 export function updateInquiryStatus(id, status) {
   if (!id) {
