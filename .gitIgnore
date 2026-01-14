@@ -1,5 +1,9 @@
 # Node modules
 node_modules/
+services/testService.js
+utils/testStorage.js
+
+
 
 .env
 .env.local
