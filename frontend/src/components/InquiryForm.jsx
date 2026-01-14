@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";  
 import {
   TextField,
   Button,
@@ -15,6 +15,7 @@ export default function InquiryForm({ onSuccess }) {
   const {
     register,
     handleSubmit,
+    control,  
     formState: { errors },
     reset,
   } = useForm({
@@ -39,7 +40,7 @@ export default function InquiryForm({ onSuccess }) {
       reset();
       setSuccess("Inquiry added successfully");
 
-      // auto clear success
+
       setTimeout(() => setSuccess(""), 2000);
     }
 
@@ -87,19 +88,30 @@ export default function InquiryForm({ onSuccess }) {
         error={!!errors.phone}
         helperText={errors.phone?.message}
       />
-      <TextField
-        select
-        label="Source"
-        fullWidth
-        margin="normal"
-        {...register("source", { required: true })}
-      >
-        {["Website", "WhatsApp", "Email", "Referral"].map((s) => (
-          <MenuItem key={s} value={s}>
-            {s}
-          </MenuItem>
-        ))}
-      </TextField>
+      
+      <Controller
+        name="source"
+        control={control}
+        rules={{ required: "Source is required" }}
+        render={({ field: { onChange, value = "Website" } }) => (  
+          <TextField
+            select
+            label="Source"
+            fullWidth
+            margin="normal"
+            value={value}  
+            onChange={onChange}
+            error={!!errors.source}
+            helperText={errors.source?.message}
+          >
+            {["Website", "WhatsApp", "Email", "Referral"].map((s) => (
+              <MenuItem key={s} value={s}>
+                {s}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
+      />
 
       <Button type="submit" variant="contained" sx={{ mt: 2 }} disabled={loading}>
         {loading ? <CircularProgress size={20} /> : "Add Inquiry"}
