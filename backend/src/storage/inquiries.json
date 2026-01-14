@@ -1,32 +1,42 @@
-[
+[  
   {
-    "id": "80653081-444b-4c81-a2ea-b42734a92ef9",
-    "name": "Aj",
-    "email": "aj@gmail.com",
-    "phone": "9876543210",
-    "source": "Website",
+    "id": "4111cf0e-caa0-4da1-87a7-009a369c5e15",
+    "name": "Satyam Gupta",
+    "email": "gupta9ji@gmail.com",
+    "phone": "7898565466",
+    "source": "Email",
     "status": "New",
-    "createdAt": "2026-01-14T08:26:59.166Z",
-    "updatedAt": "2026-01-14T08:26:59.166Z"
+    "createdAt": "2026-01-14T10:20:42.651Z",
+    "updatedAt": "2026-01-14T10:20:42.651Z"
   },
   {
-    "id": "5bf112c4-d04a-4429-a388-5e3cb4ea557b",
-    "name": "Aj",
-    "email": "aj@gmil.com",
-    "phone": "9876543210",
-    "source": "Website",
+    "id": "b97b9201-906c-40c7-8d77-51a699dcf1d9",
+    "name": "RITESH",
+    "email": null,
+    "phone": "7827046789",
+    "source": "Email",
     "status": "New",
-    "createdAt": "2026-01-14T08:27:13.970Z",
-    "updatedAt": "2026-01-14T08:27:13.970Z"
+    "createdAt": "2026-01-14T10:21:57.814Z",
+    "updatedAt": "2026-01-14T10:21:57.814Z"
   },
   {
-    "id": "98d21883-754d-4932-a3eb-04588122029d",
-    "name": "Aj",
-    "email": "aj@gmail.com",
-    "phone": "9876543210",
-    "source": "Website",
+    "id": "de781c2b-ee3f-4b45-85ca-1d61c54684a9",
+    "name": "RITESH",
+    "email": null,
+    "phone": "7827046969",
+    "source": "WhatsApp",
     "status": "New",
-    "createdAt": "2026-01-14T08:28:42.715Z",
-    "updatedAt": "2026-01-14T08:28:42.715Z"
+    "createdAt": "2026-01-14T10:24:01.589Z",
+    "updatedAt": "2026-01-14T10:24:01.589Z"
+  },
+  {
+    "id": "08f06780-11da-4300-a11c-3fb02197b0d2",
+    "name": "RITESH",
+    "email": null,
+    "phone": "7827046964",
+    "source": "WhatsApp",
+    "status": "New",
+    "createdAt": "2026-01-14T10:30:15.977Z",
+    "updatedAt": "2026-01-14T10:30:15.977Z"
   }
 ]
