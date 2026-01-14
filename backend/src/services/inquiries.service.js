@@ -14,10 +14,12 @@ export function isValidPhone(phone) {
 
 export function getAllInquiries() {
   const inquiries = readInquiries();
-  return Array.isArray(inquiries) ? inquiries : [];
+if (!Array.isArray(inquiries)) return [];
+
+  return inquiries.sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
 }
-
-
 
 export function addInquiry({ name, email, phone, source }) {
   if (!name || !name.trim()) {
@@ -62,7 +64,7 @@ export function addInquiry({ name, email, phone, source }) {
     source,
     status: "New",
     createdAt: now,
-    updatedAt: now
+    updatedAt: now,
   };
 
   inquiries.push(newInquiry);
@@ -70,7 +72,6 @@ export function addInquiry({ name, email, phone, source }) {
 
   return newInquiry;
 }
-
 
 export function updateInquiryStatus(id, status) {
   if (!id) {
@@ -91,7 +92,7 @@ export function updateInquiryStatus(id, status) {
   inquiries[index] = {
     ...inquiries[index],
     status,
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString(),
   };
 
   writeInquiries(inquiries);
