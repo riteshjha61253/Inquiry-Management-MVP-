@@ -4,6 +4,17 @@ import { v4 as uuidv4 } from "uuid";
 const VALID_SOURCES = ["Website", "WhatsApp", "Email", "Referral"];
 const VALID_STATUSES = ["New", "Contacted", "Closed"];
 
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+function isValidPhone(phone) {
+  const phoneRegex = /^[0-9]{10,15}$/;
+  return phoneRegex.test(phone);
+}
+
+
 
 export function getAllInquiries() {
   return readInquiries();
