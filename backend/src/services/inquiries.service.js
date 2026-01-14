@@ -16,8 +16,8 @@ export function getAllInquiries() {
   return readInquiries();
 }
 
+
 export function addInquiry({ name, email, phone, source }) {
-  // Name validation
   if (!name || !name.trim()) {
     throw new Error("Name is required");
   }
@@ -25,7 +25,6 @@ export function addInquiry({ name, email, phone, source }) {
   if (!email && !phone) {
     throw new Error("Either email or phone number is required");
   }
-
 
   if (email && !isValidEmail(email)) {
     throw new Error("Invalid email format");
@@ -40,6 +39,17 @@ export function addInquiry({ name, email, phone, source }) {
   }
 
   const inquiries = readInquiries();
+
+  const duplicate = inquiries.find((inq) => {
+    if (email && inq.email === email) return true;
+    if (phone && inq.phone === phone) return true;
+    return false;
+  });
+
+  if (duplicate) {
+    throw new Error("Inquiry with same email or phone already exists");
+  }
+
   const now = new Date().toISOString();
 
   const newInquiry = {
@@ -58,6 +68,7 @@ export function addInquiry({ name, email, phone, source }) {
 
   return newInquiry;
 }
+
 
 export function updateInquiryStatus(id, status) {
   if (!id) {
