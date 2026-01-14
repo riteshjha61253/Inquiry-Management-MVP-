@@ -15,9 +15,9 @@ export function getInquiries(req, res) {
 
 export function createInquiry(req, res) {
   try {
-    const { name, contact, source } = req.body;
+    const { name, email, phone, source } = req.body;
 
-    const inquiry = addInquiry({ name, contact, source });
+    const inquiry = addInquiry({ name, email, phone, source });
 
     res.status(201).json(inquiry);
   } catch (error) {

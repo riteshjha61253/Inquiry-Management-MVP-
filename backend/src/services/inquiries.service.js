@@ -4,34 +4,39 @@ import { v4 as uuidv4 } from "uuid";
 const VALID_SOURCES = ["Website", "WhatsApp", "Email", "Referral"];
 const VALID_STATUSES = ["New", "Contacted", "Closed"];
 
-function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+export function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function isValidPhone(phone) {
-  const phoneRegex = /^[0-9]{10,15}$/;
-  return phoneRegex.test(phone);
+export function isValidPhone(phone) {
+  return /^[0-9]{10,15}$/.test(phone);
 }
-
-
 
 export function getAllInquiries() {
   return readInquiries();
 }
 
-export function addInquiry({ name, contact, source }) {
-  // Basic validation (intentionally minimal)
+export function addInquiry({ name, email, phone, source }) {
+  // Name validation
   if (!name || !name.trim()) {
     throw new Error("Name is required");
   }
 
-  if (!contact || !contact.trim()) {
-    throw new Error("Contact is required");
+  if (!email && !phone) {
+    throw new Error("Either email or phone number is required");
+  }
+
+
+  if (email && !isValidEmail(email)) {
+    throw new Error("Invalid email format");
+  }
+
+  if (phone && !isValidPhone(phone)) {
+    throw new Error("Invalid phone number");
   }
 
   if (!VALID_SOURCES.includes(source)) {
-    throw new Error("Invalid source");
+    throw new Error("Invalid inquiry source");
   }
 
   const inquiries = readInquiries();
@@ -40,14 +45,15 @@ export function addInquiry({ name, contact, source }) {
   const newInquiry = {
     id: uuidv4(),
     name: name.trim(),
-    contact: contact.trim(),
+    email: email || null,
+    phone: phone || null,
     source,
     status: "New",
     createdAt: now,
     updatedAt: now
   };
 
-  inquiries.unshift(newInquiry); // newest first
+  inquiries.push(newInquiry);
   writeInquiries(inquiries);
 
   return newInquiry;
@@ -76,6 +82,5 @@ export function updateInquiryStatus(id, status) {
   };
 
   writeInquiries(inquiries);
-
   return inquiries[index];
 }
