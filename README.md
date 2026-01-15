@@ -8,6 +8,7 @@ This project is an **MVP** focused on clean structure, correct logic, and practi
 
 ## 🚀 Features
 
+
 ### Backend
 - Create new inquiries
 - Fetch all inquiries (with optional filters)
@@ -68,7 +69,7 @@ inquiry-management/
 │   └── .gitignore
 │
 └── README.md
-
+```
 ---
 
 ## ⚙️ Setup Instructions
@@ -76,110 +77,99 @@ inquiry-management/
 ### 1️⃣ Clone the Repository
 
 ```bash
-# 1. git clone <your-repository-url>
-# 2. cd inquiry-management
+1. git clone <your-repository-url>
+2. cd inquiry-management
+```
 
 ## 🖥️ Backend Setup
-# 1. Install Dependencies
-# 2. cd backend
-# 3. npm install
 
-##Start Backend Server
+ 1. Install Dependencies
+ 2. cd backend
+ 3. npm install
+
+## Start Backend Server
 - npm start
 
 
-#Backend runs at:
+## Backend runs at:
 
 http://localhost:5000
 
 
-#Base API URL:
+## Base API URL:
 
 http://localhost:5000/api/inquiries
 
 ## 🌐 Frontend Setup
-#1. Install Dependencies
-#2. cd frontend
-#3. npm install
+1. Install Dependencies
+2. cd frontend
+3. npm install
 
-Create Environment File
+## Create Environment File
 
-Create a .env file inside the frontend directory:
+### Create a .env file inside the frontend directory:
 
 VITE_API_URL=http://localhost:5000/api
 
+- Restart the dev server after adding the environment file.
 
-Restart the dev server after adding the environment file.
-
-Start Frontend
+## Start Frontend
 npm run dev
 
-
-Frontend runs at:
+- Frontend runs at:
 
 http://localhost:5173
 
-🔗 API Endpoints
-Get All Inquiries
+## 🔗 API Endpoints
+
+### Get All Inquiries
 GET /api/inquiries
 
+- Optional Query Parameters
+1. status
+2. source
 
-Optional Query Parameters
-
-status
-
-source
-
-Create Inquiry
+### Create Inquiry
 POST /api/inquiries
 
-
 Request Body
-
+``` json
 {
   "name": "John Doe",
   "email": "john@example.com",
   "phone": "9876543210",
   "source": "Website"
 }
+```
 
-Update Inquiry Status
+### Update Inquiry Status
 PATCH /api/inquiries/:id/status
 
 
 Request Body
 
+```json
 {
   "status": "Contacted"
 }
+```
 
 
-Valid Status Values
+### Valid Status Values
+There are three status
+1. New
+2. Contacted
+3. Closed
 
-New
+## 🧪 Validation Rules
 
-Contacted
-
-Closed
-
-🧪 Validation Rules
-
-Name is required
-
-Either email or phone must be provided
-
-Email must be valid
-
-Phone must be 10–15 digits
-
-Duplicate email or phone is not allowed
-
-Source must be one of:
-
-Website
-
-WhatsApp
-
-Email
-
-Referral
+1. Name is required
+2. Either email or phone must be provided
+3. Email must be valid
+4. Phone must be 10–15 digits
+5. Duplicate email or phone is not allowed
+6. Source must be one of:
+   -Website
+   -WhatsApp
+   -Email
+   -Referral
