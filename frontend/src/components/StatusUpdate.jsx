@@ -1,13 +1,25 @@
 import { MenuItem, Select, Button, CircularProgress, Box, Typography, Alert } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react"; 
 import { updateInquiryStatus } from "../utils/api";
 
 export default function StatusUpdate({ inquiry, onUpdated }) {
-  const [newStatus, setNewStatus] = useState("Contacted"); // Default to first option
+  const [newStatus, setNewStatus] = useState("");
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState("");
 
+  const availableStatuses = ["Contacted", "Closed"].filter(
+    (s) => s !== inquiry.status 
+  );
+
+  useEffect(() => {
+    if (availableStatuses.length > 0) {
+      setNewStatus(availableStatuses[0]);
+    }
+  }, [inquiry.status, availableStatuses]);
+
   const handleUpdate = async () => {
+    if (!newStatus) return; 
+
     setUpdating(true);
     setError("");
 
@@ -16,14 +28,24 @@ export default function StatusUpdate({ inquiry, onUpdated }) {
     if (apiError) {
       setError(apiError);
     } else {
-      onUpdated(data);
       setError("");
-      // Optionally reset select to current status after success
-      setNewStatus(inquiry.status);
+      onUpdated(data);
+
+      if (availableStatuses.length > 0) {
+        setNewStatus(availableStatuses[0]);
+      }
     }
 
     setUpdating(false);
   };
+
+  if (availableStatuses.length === 0) {
+    return (
+      <Typography variant="body2" color="text.secondary">
+        No updates available
+      </Typography>
+    );
+  }
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5, minWidth: 120 }}>
@@ -34,7 +56,7 @@ export default function StatusUpdate({ inquiry, onUpdated }) {
         disabled={updating}
         sx={{ minWidth: 120 }}
       >
-        {["Contacted", "Closed"].map((s) => (
+        {availableStatuses.map((s) => (
           <MenuItem key={s} value={s}>
             {s}
           </MenuItem>
@@ -44,7 +66,7 @@ export default function StatusUpdate({ inquiry, onUpdated }) {
         variant="outlined"
         size="small"
         onClick={handleUpdate}
-        disabled={updating || newStatus === inquiry.status} // Disable if no change
+        disabled={updating || newStatus === inquiry.status} 
         sx={{ minWidth: 120, height: 32 }}
       >
         {updating ? <CircularProgress size={16} /> : "Update Status"}
