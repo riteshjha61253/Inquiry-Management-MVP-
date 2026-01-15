@@ -6,8 +6,12 @@ This project is an **MVP** focused on clean structure, correct logic, and practi
 
 ---
 
-## 🚀 Features
+## Project Walkthrough (Loom)
 
+[![Watch the demo](https://cdn.loom.com/sessions/thumbnails/96e64e17eaa74a6a8b92d998b2750ff8-with-play.gif)](https://www.loom.com/share/96e64e17eaa74a6a8b92d998b2750ff8)
+
+
+## 🚀 Features
 
 ### Backend
 - Create new inquiries
@@ -69,6 +73,7 @@ inquiry-management/
 │   └── .gitignore
 │
 └── README.md
+└── gitIgnore
 ```
 ---
 
@@ -77,15 +82,16 @@ inquiry-management/
 ### 1️⃣ Clone the Repository
 
 ```bash
-1. git clone <your-repository-url>
+1. git clone https://github.com/riteshjha61253/Inquiry-Management-MVP-.git
 2. cd inquiry-management
 ```
 
 ## 🖥️ Backend Setup
 
- 1. Install Dependencies
- 2. cd backend
+ 1. cd backend
+ 2. Install Dependencies
  3. npm install
+ 4. npm start (to start backend server);
 
 ## Start Backend Server
 - npm start
@@ -100,15 +106,18 @@ http://localhost:5000
 
 http://localhost:5000/api/inquiries
 
-## 🌐 Frontend Setup
-1. Install Dependencies
-2. cd frontend
-3. npm install
+## Open new terminal 
 
+## 🌐 Frontend Setup
+1. cd frontend
+2. Install Dependencies
+3. npm install
+4. npm run dev (to start frontend)
+---
 ## Create Environment File
 
 ### Create a .env file inside the frontend directory:
-
+and paste this:
 VITE_API_URL=http://localhost:5000/api
 
 - Restart the dev server after adding the environment file.
@@ -120,6 +129,8 @@ npm run dev
 
 http://localhost:5173
 
+---
+
 ## 🔗 API Endpoints
 
 ### Get All Inquiries
@@ -128,7 +139,7 @@ GET /api/inquiries
 - Optional Query Parameters
 1. status
 2. source
-
+---
 ### Create Inquiry
 POST /api/inquiries
 
@@ -141,7 +152,7 @@ Request Body
   "source": "Website"
 }
 ```
-
+---
 ### Update Inquiry Status
 PATCH /api/inquiries/:id/status
 
@@ -160,7 +171,7 @@ There are three status
 1. New
 2. Contacted
 3. Closed
-
+---
 ## 🧪 Validation Rules
 
 1. Name is required
@@ -173,3 +184,50 @@ There are three status
    -WhatsApp
    -Email
    -Referral
+---
+## Here is Curl
+
+### 1. Email + phone (both allowed)
+
+```bash
+curl -X POST http://localhost:5000/api/inquiries \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Sneha",
+  "email": "sneha@test.com",
+  "phone": "+91-98765-43210",
+  "source": "Referral"
+}'
+```
+---
+
+### 2. UPDATE STATUS 
+
+Replace <ID> with a  inquiry ID from GET response
+
+```bash
+curl -X PATCH http://localhost:5000/api/inquiries/<ID>/status \
+-H "Content-Type: application/json" \
+-d '{
+  "status": "Contacted"
+}'
+```
+---
+### 3. Get all inquiries
+
+```bash
+curl http://localhost:5000/api/inquiries
+```
+---
+### 4. Filter by valid status
+
+```bash
+curl "http://localhost:5000/api/inquiries?status=New"
+```
+---
+### 5. Filter by status + source
+
+```bash
+curl "http://localhost:5000/api/inquiries?status=Closed&source=Email"
+```
+---
