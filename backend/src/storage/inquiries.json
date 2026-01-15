@@ -1,4 +1,4 @@
-[  
+[
   {
     "id": "4111cf0e-caa0-4da1-87a7-009a369c5e15",
     "name": "Satyam Gupta",
@@ -28,15 +28,5 @@
     "status": "New",
     "createdAt": "2026-01-14T10:24:01.589Z",
     "updatedAt": "2026-01-14T10:24:01.589Z"
-  },
-  {
-    "id": "08f06780-11da-4300-a11c-3fb02197b0d2",
-    "name": "RITESH",
-    "email": null,
-    "phone": "7827046964",
-    "source": "WhatsApp",
-    "status": "New",
-    "createdAt": "2026-01-14T10:30:15.977Z",
-    "updatedAt": "2026-01-14T10:30:15.977Z"
   }
 ]

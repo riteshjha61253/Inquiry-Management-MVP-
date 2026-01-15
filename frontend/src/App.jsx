@@ -9,6 +9,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+
   const [filterSource, setFilterSource] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
 
@@ -27,13 +28,17 @@ export default function App() {
     setLoading(false);
   };
 
-  
+
   const handleNewInquiry = () => {
     fetchAll({ source: filterSource, status: filterStatus });
   };
 
-  const handleStatusUpdate = (updated) =>
-    setInquiries(inquiries.map((i) => (i.id === updated.id ? updated : i)));
+  const handleStatusUpdate = () => {
+    const filters = {};
+    if (filterSource) filters.source = filterSource;
+    if (filterStatus) filters.status = filterStatus;
+    fetchAll(filters);
+  };
 
   const handleApplyFilters = () => {
     const filters = {};
@@ -41,7 +46,6 @@ export default function App() {
     if (filterStatus) filters.status = filterStatus;
     fetchAll(filters);
   };
-
 
   const handleResetFilters = () => {
     setFilterSource("");
