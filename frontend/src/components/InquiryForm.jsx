@@ -1,4 +1,4 @@
-import { useForm, Controller } from "react-hook-form";  
+import { useForm, Controller } from "react-hook-form";
 import {
   TextField,
   Button,
@@ -15,11 +15,16 @@ export default function InquiryForm({ onSuccess }) {
   const {
     register,
     handleSubmit,
-    control,  
+    control,
     formState: { errors },
     reset,
   } = useForm({
-    defaultValues: { name: "", email: "", phone: "", source: "Website" },
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      source: "Not Selected",
+    },
   });
 
   const [loading, setLoading] = useState(false);
@@ -39,8 +44,6 @@ export default function InquiryForm({ onSuccess }) {
       onSuccess(data);
       reset();
       setSuccess("Inquiry added successfully");
-
-
       setTimeout(() => setSuccess(""), 2000);
     }
 
@@ -48,8 +51,10 @@ export default function InquiryForm({ onSuccess }) {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mb: 4 }}>
-      <Typography variant="h6">Add New Inquiry</Typography>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+      <Typography variant="h6" sx={{ mb: 1 }}>
+        Add New Inquiry
+      </Typography>
 
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
       {success && <Alert severity="success" sx={{ mb: 2 }}>{success}</Alert>}
@@ -62,6 +67,7 @@ export default function InquiryForm({ onSuccess }) {
         error={!!errors.name}
         helperText={errors.name?.message}
       />
+
       <TextField
         label="Email"
         fullWidth
@@ -75,6 +81,7 @@ export default function InquiryForm({ onSuccess }) {
         error={!!errors.email}
         helperText={errors.email?.message}
       />
+
       <TextField
         label="Phone"
         fullWidth
@@ -88,32 +95,41 @@ export default function InquiryForm({ onSuccess }) {
         error={!!errors.phone}
         helperText={errors.phone?.message}
       />
-      
+
       <Controller
         name="source"
         control={control}
-        rules={{ required: "Source is required" }}
-        render={({ field: { onChange, value = "Website" } }) => (  
+        rules={{
+          validate: (value) =>
+            value !== "Not Selected" || "Source must be selected",
+        }}
+        render={({ field }) => (
           <TextField
             select
             label="Source"
             fullWidth
             margin="normal"
-            value={value}  
-            onChange={onChange}
+            {...field}
             error={!!errors.source}
             helperText={errors.source?.message}
           >
-            {["Website", "WhatsApp", "Email", "Referral"].map((s) => (
-              <MenuItem key={s} value={s}>
-                {s}
-              </MenuItem>
-            ))}
+            {["Not Selected", "Website", "WhatsApp", "Email", "Referral"].map(
+              (s) => (
+                <MenuItem key={s} value={s}>
+                  {s}
+                </MenuItem>
+              )
+            )}
           </TextField>
         )}
       />
 
-      <Button type="submit" variant="contained" sx={{ mt: 2 }} disabled={loading}>
+      <Button
+        type="submit"
+        variant="contained"
+        sx={{ mt: 2 }}
+        disabled={loading}
+      >
         {loading ? <CircularProgress size={20} /> : "Add Inquiry"}
       </Button>
     </Box>
