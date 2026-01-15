@@ -8,8 +8,7 @@ This project is an **MVP** focused on clean structure, correct logic, and practi
 
 ## Project Walkthrough (Loom)
 
-[![Watch the demo](https://cdn.loom.com/sessions/thumbnails/96e64e17eaa74a6a8b92d998b2750ff8-with-play.gif)](https://www.loom.com/share/96e64e17eaa74a6a8b92d998b2750ff8)
-
+- https://www.loom.com/share/96e64e17eaa74a6a8b92d998b2750ff8
 
 ## 🚀 Features
 
