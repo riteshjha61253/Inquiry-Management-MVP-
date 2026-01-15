@@ -1,43 +1,50 @@
-Inquiry Management System
-A simple full-stack Inquiry Management System(MVP) built with Node.js (Express) and React (Vite).
+# Inquiry Management System (MVP)
 
-🚀 Features
-Backend
+A simple **full-stack Inquiry Management System** built with **Node.js (Express)** and **React (Vite)**.
 
-Create new inquiries
-Fetch all inquiries (with filters)
-Update inquiry status
-Email and phone validation
-Duplicate inquiry prevention
-File-based JSON storage
-RESTful API structure
+This project is an **MVP** focused on clean structure, correct logic, and practical trade-offs rather than production-level complexity.
 
-Frontend
+---
 
-Built with React + Vite
-Material UI for clean UI
-React Hook Form for form handling & validation
-Axios for API communication
+## 🚀 Features
 
+### Backend
+- Create new inquiries
+- Fetch all inquiries (with optional filters)
+- Update inquiry status
+- Email and phone validation
+- Duplicate inquiry prevention
+- File-based JSON storage
+- RESTful API structure
 
-🧱 Tech Stack
-Backend
+### Frontend
+- Built with React + Vite
+- Material UI (MUI) for clean UI
+- React Hook Form for form handling and validation
+- Axios for API communication
 
-Node.js
-Express.js
-UUID
-File System (JSON storage)
+---
 
-Frontend
+## 🧱 Tech Stack
 
-React (Vite)
-Material UI (MUI)
-React Hook Form
-Axios
+### Backend
+- Node.js
+- Express.js
+- UUID
+- File System (JSON storage)
 
+### Frontend
+- React (Vite)
+- Material UI (MUI)
+- React Hook Form
+- Axios
 
-📂 Project Structure
-textinquiry-management/
+---
+
+## 📂 Project Structure
+
+```text
+inquiry-management/
 ├── backend/
 │   ├── src/
 │   │   ├── controllers/
@@ -62,80 +69,117 @@ textinquiry-management/
 │
 └── README.md
 
-⚙️ Setup Instructions
-1️⃣ Clone the Repository
-Bashgit clone <your-repository-url>
-cd inquiry-management
-🖥️ Backend Setup
-Install Dependencies
-Bashcd backend
-npm install
-Start Backend Server
-Bashnpm start
-Backend runs at:
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the Repository
+
+```bash
+# 1. git clone <your-repository-url>
+# 2. cd inquiry-management
+
+## 🖥️ Backend Setup
+# 1. Install Dependencies
+# 2. cd backend
+# 3. npm install
+
+##Start Backend Server
+- npm start
+
+
+#Backend runs at:
+
 http://localhost:5000
-Base API URL:
+
+
+#Base API URL:
+
 http://localhost:5000/api/inquiries
-🌐 Frontend Setup
-Install Dependencies
-Bashcd frontend
-npm install
+
+## 🌐 Frontend Setup
+#1. Install Dependencies
+#2. cd frontend
+#3. npm install
+
 Create Environment File
+
 Create a .env file inside the frontend directory:
-textREACT_APP_API_URL=http://localhost:5000/api
-⚠️ Restart the dev server after adding .env.
+
+VITE_API_URL=http://localhost:5000/api
+
+
+Restart the dev server after adding the environment file.
+
 Start Frontend
-Bashnpm run dev
+npm run dev
+
+
 Frontend runs at:
+
 http://localhost:5173
 
 🔗 API Endpoints
 Get All Inquiries
-BashGET /api/inquiries
-Optional Query Params:
+GET /api/inquiries
+
+
+Optional Query Parameters
 
 status
+
 source
 
 Create Inquiry
-BashPOST /api/inquiries
-Request Body:
-JSON{
+POST /api/inquiries
+
+
+Request Body
+
+{
   "name": "John Doe",
   "email": "john@example.com",
   "phone": "9876543210",
   "source": "Website"
 }
+
 Update Inquiry Status
-BashPATCH /api/inquiries/:id/status
-Request Body:
-JSON{
+PATCH /api/inquiries/:id/status
+
+
+Request Body
+
+{
   "status": "Contacted"
 }
-Valid Status Values:
+
+
+Valid Status Values
 
 New
-Contacted
-Closed
 
+Contacted
+
+Closed
 
 🧪 Validation Rules
 
 Name is required
+
 Either email or phone must be provided
+
 Email must be valid
+
 Phone must be 10–15 digits
+
 Duplicate email or phone is not allowed
+
 Source must be one of:
+
 Website
+
 WhatsApp
+
 Email
+
 Referral
-
-
-
-📌 Notes
-
-node_modules are ignored via .gitignore
-This project uses file-based storage, not a database
-

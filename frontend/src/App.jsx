@@ -65,7 +65,7 @@ export default function App() {
 
       <InquiryForm onSuccess={handleNewInquiry} />
 
-      <Box sx={{ display: "flex", gap: 2, mb: 2, mt: 2, flexWrap: "wrap" }}>
+      {/* <Box sx={{ display: "flex", gap: 2, mb: 2, mt: 2, flexWrap: "wrap" }}>
         <FormControl size="small" sx={{ minWidth: 120 }}>
           <InputLabel>Source</InputLabel>
           <Select
@@ -110,7 +110,7 @@ export default function App() {
             Reset
           </Button>
         </Box>
-      </Box>
+      </Box> */}
 
       {loading && (
         <CircularProgress
